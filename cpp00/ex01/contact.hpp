@@ -21,8 +21,6 @@ class Contact
 			this->phoneNumber = "";
 			this->darkestSecret = "";
 		};
-		~Contact(void)
-		{};
 		void setFirstName(std::string firstName);
 		void setLastName(std::string lastName);
 		void setNickname(std::string nickname);
@@ -33,7 +31,6 @@ class Contact
 		std::string getNickname(void);
 		std::string getPhoneNumber(void);
 		std::string getDarkestSecret(void);
-		void printInfo(void);
 };
 
 #endif

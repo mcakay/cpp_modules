@@ -11,7 +11,7 @@ void	Phonebook::printContacts(void)
 	std::string lastName;
 	std::string nickname;
 
-	std::cout << " |     Index|First Name| Last Name|  Nickname|" << std::endl;
+	std::cout << " |   Index  |First Name| LastName | Nickname |" << std::endl;
 	std::cout << " |----------|----------|----------|----------|" << std::endl;
 	for (int i = 0; i < 8; i++)
 	{

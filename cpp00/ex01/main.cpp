@@ -11,7 +11,7 @@ int main(void)
 		std::cout << "Enter a command: ";
 		std::getline(std::cin, input);
 		if (input == "EXIT")
-			return 0;
+			return (0);
 		else if (input == "ADD")
 		{
 			Contact contact;
@@ -91,4 +91,5 @@ int main(void)
 			phonebook.printContact(std::stoi(input) - 1);
 		}
 	}
+
 }

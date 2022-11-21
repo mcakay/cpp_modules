@@ -15,10 +15,6 @@ class Phonebook
 				this->contacts[i] = Contact();
 			}
 		};
-		~Phonebook(void)
-		{
-			std::cout << "Phonebook destroyed" << std::endl;
-		};
 		void	addContact(Contact contact, int index);
 		void	printContacts(void);
 		void	printContact(int index);
