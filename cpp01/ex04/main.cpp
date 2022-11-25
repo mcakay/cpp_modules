@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 	std::string search = argv[2];
 	std::string replace = argv[3];
 	std::string line;
+	std::string temp;
 	size_t pos = 0;
 	if (error(fileName, search, replace))
 		return (2);
@@ -40,12 +41,14 @@ int main(int argc, char *argv[])
 	while (std::getline(file, line))
 	{
 		pos = 0;
+		temp = line;
 		while ((pos = line.find(search, pos)) != std::string::npos)
 		{
-			line.erase(pos, search.length());
-			line.insert(pos, replace);
+			temp.erase(pos, search.length());
+			temp.insert(pos, replace);
+			pos += search.length();
 		}
-		newFile << line << std::endl;
+		newFile << temp << std::endl;
 	}
 	return (0);
 }
