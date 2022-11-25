@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
 		pos = 0;
 		while ((pos = line.find(search, pos)) != std::string::npos)
 		{
-			line.substr(pos, search.length());
 			line.erase(pos, search.length());
 			line.insert(pos, replace);
 		}
