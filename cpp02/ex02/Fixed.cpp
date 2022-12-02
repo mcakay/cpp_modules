@@ -16,12 +16,12 @@ Fixed::Fixed(const Fixed &copy)
 
 Fixed::Fixed(const int intVal)
 {
-	value = intVal * 256;
+	value = intVal * pow(2, fractionalBits);
 }
 
 Fixed::Fixed(const float floatVal)
 {
-	value = roundf(floatVal * 256);
+	value = roundf(floatVal * pow(2, fractionalBits));
 }
 
 Fixed &Fixed::operator=(const Fixed &number)
@@ -32,12 +32,12 @@ Fixed &Fixed::operator=(const Fixed &number)
 
 int Fixed::toInt() const
 {
-	return (value / 256);
+	return (value / pow(2, fractionalBits));
 }
 
 float Fixed::toFloat() const
 {
-	return (float(value) / 256);
+	return (float(value) / pow(2, fractionalBits));
 }
 
 std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
