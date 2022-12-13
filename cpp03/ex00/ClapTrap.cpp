@@ -9,6 +9,7 @@ ClapTrap::ClapTrap()
 	ss >> temp;
 	name = std::string("ClapTrap " + temp);
 	hitPoints = 10;
+	maxHP = 10;
 	energyPoints = 10;
 	attackDamage = 0;
 	std::cout << name << " is created." << std::endl;
@@ -19,6 +20,7 @@ ClapTrap::ClapTrap(std::string name)
 {
 	this->name = name;
 	hitPoints = 10;
+	maxHP = 10;
 	energyPoints = 10;
 	attackDamage = 0;
 	std::cout << name << " is created." << std::endl;
@@ -72,7 +74,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (this->energyPoints > 0)
 	{
-		if (this->hitPoints < 10)
+		if (this->hitPoints < maxHP)
 		{
 			std::cout << "ClapTrap " + this->name + " is repaired by " << amount << " points" << std::endl;
 			this->hitPoints += amount;

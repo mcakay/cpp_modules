@@ -19,6 +19,7 @@ ScavTrap::ScavTrap() : ClapTrap()
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
 	hitPoints = 100;
+	maxHP = 100;
 	energyPoints = 50;
 	attackDamage = 20;
 	std::cout << "<ScavTrap> " +  name << " is created." << std::endl;
