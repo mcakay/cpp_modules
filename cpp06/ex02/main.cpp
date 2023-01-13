@@ -61,8 +61,8 @@ int main()
 {
 	srand(time(NULL));
 	Base *p = generate();
-	std::cout << "pointer: " << identify(p) <<  std::endl;
-	std::cout << "reference: " << identify(*p) << std::endl;
+	identify(p);
+	identify(*p);
 	delete p;
 	return 0;
 }
