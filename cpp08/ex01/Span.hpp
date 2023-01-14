@@ -18,6 +18,7 @@ class Span
 		void addNumber(int n);
 		int shortestSpan();
 		int longestSpan();
+		void addRandomNumbers(unsigned int n);
 		class FullException : public std::exception
 		{
 			public:

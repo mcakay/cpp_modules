@@ -81,6 +81,18 @@ int Span::longestSpan()
 	return v[v.size() - 1] - v[0];
 }
 
+void Span::addRandomNumbers(unsigned int n)
+{
+	srand(time(NULL));
+	for (unsigned int i = 0; i < n; i++)
+	{
+		if (i % 2 == 0)
+			this->addNumber(rand() % ((i + 1) + 1) * -1);
+		else if (i % 2 == 1)
+			this->addNumber(rand() % (i + 1) + 1);
+	}
+}
+
 const char *Span::FullException::what() const throw()
 {
 	return "Span is full";
