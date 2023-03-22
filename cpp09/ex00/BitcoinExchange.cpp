@@ -1,74 +1,82 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(){};
+BitcoinExchange::BitcoinExchange(){}
 
-BitcoinExchange::~BitcoinExchange(){};
+BitcoinExchange::~BitcoinExchange()
+{
+	this->data.clear();
+}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
 	*this = copy;
 }
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &exchange)
 {
-	std::map<t_date, float>::const_iterator it = copy.data.begin();
-	std::map<t_date, float>::const_iterator ite = copy.data.end();
 	this->data.clear();
+	std::map<t_date, float>::const_iterator it = exchange.data.begin();
+	std::map<t_date, float>::const_iterator ite = exchange.data.end();
 	while (it != ite)
 	{
-		this->data.insert(std::pair<t_date, float>(it->first, it->second));
+		this->data.insert(*it);
 		it++;
 	}
 	return (*this);
 }
 
-bool t_date::operator<(const s_date& rhs) const
+void BitcoinExchange::readData(const std::string &database)
 {
-    if (year != rhs.year)
-        return year < rhs.year;
-    if (month != rhs.month)
-        return month < rhs.month;
-    return day < rhs.day;
-}
-
-bool t_date::operator>(const s_date& rhs) const
-{
-    return rhs < *this;
-}
-
-bool t_date::operator<=(const s_date& rhs) const
-{
-    return !(rhs < *this);
-}
-
-bool t_date::operator>=(const s_date& rhs) const
-{
-    return !(*this < rhs);
-}
-
-
-void BitcoinExchange::error(const std::string &err, const unsigned int &exitCode)
-{
-	std::cerr << "Error: " + err << std::endl;
-	if (exitCode != 0)
-	{
-		std::cerr << "Exiting with code " << exitCode << std::endl;
-		exit(exitCode);
-	}
-}
-
-void BitcoinExchange::readData(const std::string &filename)
-{
-	std::ifstream database(filename);
-	if (database.is_open() == true)
+	std::ifstream db(database);
+	if (db.is_open() == true)
 	{
 		std::string line;
-		while (getline(database, line))
+		bool start = false;
+		while (getline(db, line))
 		{
-			this->data.insert(std::pair<t_date, float>(, ));
+			if (start == false && line == "date,exchange_rate")
+			{
+				start = true;
+				continue;
+			}
+			std::pair<t_date, float> element;
+			utils::parse(line, ',', element);
+			this->data.insert(element);
 		}
-		database.close();
 	}
 	else
-		this->error("File is not opened", 2);
+		utils::error(database + " could not open file.", 2);
+}
+
+void BitcoinExchange::getExchange(const std::string &filename) const
+{
+	std::ifstream input(filename);
+	if (input.is_open() == true)
+	{
+		std::string line;
+		bool start = false;
+		while (getline(input, line))
+		{
+			if (start == false && line == "date | value")
+			{
+				start = true;
+				continue;
+			}
+			std::pair<t_date, float> element;
+			if (utils::parse(line, '|', element) == false)
+				continue ;
+			std::map<t_date, float>::const_iterator it = this->data.find(element.first);
+			if (it != this->data.end())
+				std::cout << line.substr(0, line.find("|")) << "=> " << element.second << " = " << element.second * it->second << std::endl;
+			else
+			{
+				std::map<t_date, float>::const_iterator it = this->data.lower_bound(element.first);
+				if (it != data.begin())
+					it--;
+				std::cout << line.substr(0, line.find("|")) << "=> " << element.second << " = " << element.second * it->second << std::endl;
+			}
+		}
+	}
+	else
+		utils::error(filename + " could not open file.", 3);
 }

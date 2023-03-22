@@ -2,9 +2,7 @@ NAME = btc
 
 CXX = c++
 
-STD = -std=c++98
-
-CPPFLAGS = -Wall -Werror -Wextra $(STD)
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98	
 
 SRCS = $(wildcard *.cpp)
 

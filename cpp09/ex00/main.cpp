@@ -2,10 +2,10 @@
 
 int main(int argc, char *argv[])
 {
-	BitcoinExchange btc;
-	(void)argv;
 	if (argc != 2)
-		btc.error("Invalid number of arguments", 1);
+		utils::error("could not open file.", 1);
+	BitcoinExchange btc;
 	btc.readData("data.csv");
-	return (0);
+	btc.getExchange(argv[1]);
+	return 0;
 }

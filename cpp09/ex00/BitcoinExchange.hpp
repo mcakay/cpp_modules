@@ -1,34 +1,21 @@
-#ifndef BITCOIN_EXCHANGE
-# define BITCOIN_EXCHANGE
+#ifndef BITCOIN_EXCHANGE_HPP
+# define BITCOIN_EXCHANGE_HPP
 
-#include <fstream>
-#include <iostream>
 #include <map>
-
-typedef struct s_date
-{
-    int day;
-    int month;
-    int year;
-	bool operator<(const s_date& rhs) const;
-    bool operator>(const s_date& rhs) const;
-    bool operator<=(const s_date& rhs) const;
-    bool operator>=(const s_date& rhs) const;
-} t_date;
-
-typedef std::map<t_date, float> t_data;
+#include <fstream>
+#include "utils.hpp"
 
 class BitcoinExchange
 {
 	private:
-		t_data data;
+		std::map<t_date, float> data;
 	public:
 		BitcoinExchange();
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &copy);
-		BitcoinExchange &operator=(const BitcoinExchange &btc);
-		void error(const std::string &err, const unsigned int &exitCode);
-		void readData(const std::string &filename);
+		BitcoinExchange &operator=(const BitcoinExchange &exchange);
+		void readData(const std::string &database);
+		void getExchange(const std::string &filename) const;
 };
 
 #endif
